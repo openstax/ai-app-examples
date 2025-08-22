@@ -4,7 +4,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ../../scripts/render-env src/config.js.example && npx live-server ."
+    "setup": "node ../../scripts/render-env src/config.js.example",
+    "start": "npm run setup && npx live-server ."
   },
   "files": [
     "src",

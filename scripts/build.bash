@@ -10,6 +10,13 @@ NC='\033[0m' # No Color
 
 echo -e "${GREEN}Building all examples...${NC}\n"
 
+# Install root dependencies if package.json exists
+if [ -f "package.json" ]; then
+    echo -e "${YELLOW}Installing root dependencies...${NC}"
+    npm install
+    echo ""
+fi
+
 # Create top-level dist folder
 DIST_DIR="$(pwd)/dist"
 if [ -d "$DIST_DIR" ]; then
@@ -39,7 +46,21 @@ for example_dir in "$EXAMPLES_DIR"/*; do
         
         cd "$example_dir"
         
-        # 1) Check if there's a build script and run it
+        # 1) Install dependencies
+        if [ -f "package.json" ]; then
+            echo -e "${YELLOW}  Installing dependencies...${NC}"
+            npm install
+        fi
+        
+        # 2) Run setup script if present
+        if npm run | grep -q "setup"; then
+            echo -e "${YELLOW}  Running npm run setup...${NC}"
+            npm run setup
+        else
+            echo -e "${YELLOW}  No setup script found, skipping setup step...${NC}"
+        fi
+        
+        # 3) Check if there's a build script and run it
         if npm run | grep -q "build"; then
             echo -e "${YELLOW}  Running npm run build...${NC}"
             npm run build
@@ -47,7 +68,7 @@ for example_dir in "$EXAMPLES_DIR"/*; do
             echo -e "${YELLOW}  No build script found, skipping build step...${NC}"
         fi
         
-        # 2 & 3) Use Node.js to parse package.json and copy files with prefix handling
+        # 4) Use Node.js to parse package.json and copy files with prefix handling
         node -e "
         const fs = require('fs');
         const path = require('path');
