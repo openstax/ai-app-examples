@@ -1,0 +1,10 @@
+/*
+ * DON'T EDIT THIS FILE DIRECTLY.
+ */
+export const API_KEY='{{API_KEY}}';
+export const API_HOST = '{{API_HOST}}';
+
+export const API_URL = `https://${API_HOST}/api/v0`;
+export const TOKEN_URL = `${API_URL}/user/token`;
+export const PROMPT_IDS = {{PROMPT_IDS}};
+export const MODELS = {{MODELS}};
