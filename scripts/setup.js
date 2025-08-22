@@ -43,11 +43,22 @@ async function main() {
 
   let apiKey = '';
 
-  // Keep asking until a non-empty API key is provided
-  while (!apiKey) {
-    apiKey = await promptForApiKey();
-    if (!apiKey) {
-      console.log('API key cannot be empty. Please try again.\n');
+  // Use API_KEY from environment if present
+  if (process.env.API_KEY) {
+    apiKey = process.env.API_KEY.trim();
+    console.log('Using API key from environment variable.');
+  } else {
+    // Check if we're in a non-interactive environment (CI, non-TTY)
+    if (!process.stdin.isTTY) {
+      throw new Error('API_KEY environment variable is required when running in non-interactive mode (CI/automated environment)');
+    }
+
+    // Keep asking until a non-empty API key is provided
+    while (!apiKey) {
+      apiKey = await promptForApiKey();
+      if (!apiKey) {
+        console.log('API key cannot be empty. Please try again.\n');
+      }
     }
   }
 

@@ -6,6 +6,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ../../scripts/render-env src/config.js.example && npx live-server ."
   },
+  "files": [
+    "src",
+    "index.html",
+    "node_modules"
+  ],
   "dependencies": {
     "history": "^5.3.0"
   }
