@@ -3,6 +3,8 @@ import { loadStyle } from '../css.js';
 import { MODELS } from '../config.js';
 
 const assessmentQuestionJsonSchema = {
+  type: 'object',
+  description: 'A question to be answered, either open-ended or multiple-choice.',
   oneOf: [
     {
       type: 'object',
