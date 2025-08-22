@@ -63,7 +63,7 @@ async function initLayout() {
   nav.innerHTML = `
     <ul>
       <li><a href="#/">Home</a></li>
-      <li><button id="logout-link">Logout</button></li>
+      <li class="hidden"><button id="logout-link">Logout</button></li>
     </ul>
   `;
 
@@ -72,5 +72,9 @@ async function initLayout() {
     e.preventDefault();
     logout()
   });
+
+  if (token) {
+    logoutLink.parentElement.classList.remove('hidden');
+  }
 }
 console.log('hello from index.js');
