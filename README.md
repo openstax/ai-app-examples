@@ -4,7 +4,7 @@
 This repository contains various examples of AI applications built using different technologies and frameworks. Each example demonstrates how to integrate AI capabilities, such as text generation, chat, and structured data generation, into a web application.
 
 ## Examples Overview
-- [01_plain_js](./examples/01_plain_js): A basic web application using plain JavaScript without any framework or build process.
+- 01_plain_js: A basic web application using plain JavaScript without any framework or build process. [README](./examples/01_plain_js) [demo](https://openstax.github.io/ai-app-examples/01_plain_js)
 
 
 ## Batteries Included
