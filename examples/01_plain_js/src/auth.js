@@ -1,4 +1,4 @@
-import { TOKEN_URL } from './config.js'; 
+import { TOKEN_URL } from './config.js';
 
 const search = location.search;
 const params = new URLSearchParams(search);
@@ -19,11 +19,11 @@ if (searchToken) {
 const explicitLogout = localStorage.getItem('explicit_logout') === 'true';
 export const token = localStorage.getItem('launch_token') || null;
 
-export const redirectToAuth = () => {
+export const redirectToAuth = (forceRelogin = explicitLogout) => {
   const redirectUrl = new URL(TOKEN_URL);
   redirectUrl.searchParams.set('r', location.href);
 
-  if (explicitLogout) {
+  if (forceRelogin) {
     redirectUrl.searchParams.set('force_relogin', 'true');
   }
 
@@ -33,5 +33,5 @@ export const redirectToAuth = () => {
 export const logout = () => {
   localStorage.removeItem('launch_token');
   localStorage.setItem('explicit_logout', 'true');
-  window.location.reload();
+  redirectToAuth(true);
 };

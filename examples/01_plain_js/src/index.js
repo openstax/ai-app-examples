@@ -68,6 +68,9 @@ async function initLayout() {
   `;
 
   const logoutLink = document.getElementById('logout-link');
-  logoutLink.addEventListener('click', logout);
+  logoutLink.addEventListener('click', e => {
+    e.preventDefault();
+    logout()
+  });
 }
 console.log('hello from index.js');
