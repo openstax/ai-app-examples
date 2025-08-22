@@ -196,16 +196,16 @@ function renderQuestion(modelId, question) {
   if (isMultipleChoice) {
     const form = questionElement.querySelector('.question-form');
     const optionEl = form.querySelector('.radio-option');
+    const optionContainer = optionEl.parentNode;
+    optionEl.remove();
 
     question.options.forEach((option, i) => {
       const thisOptionEl = optionEl.cloneNode(true);
       thisOptionEl.querySelector('.label-text').innerHTML = option;
       thisOptionEl.querySelector('input').value = `choice-${i}`;
       choiceAnswers[`choice-${i}`] = option;
-      optionEl.insertAdjacentElement('afterend', thisOptionEl);
+      optionContainer.appendChild(thisOptionEl);
     });
-
-    optionEl.remove();
   }
 
   template.insertAdjacentElement('afterend', questionElement);
