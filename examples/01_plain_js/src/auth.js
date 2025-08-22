@@ -28,6 +28,7 @@ export const redirectToAuth = (forceRelogin = explicitLogout) => {
   }
 
   window.location = redirectUrl.toString();
+  document.body.style.display = 'none';
 };
 
 export const logout = () => {
