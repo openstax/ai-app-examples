@@ -4,48 +4,54 @@ import { MODELS } from '../config.js';
 
 const assessmentQuestionJsonSchema = {
   type: 'object',
-  description: 'A question to be answered, either open-ended or multiple-choice.',
-  oneOf: [
-    {
+  properties: {
+    question: {
       type: 'object',
-      properties: {
-        type: {
-          type: 'string',
-          enum: ['open-response'],
-          description: 'The type of question to generate.',
-        },
-        question: {
-          type: 'string',
-          description: 'The question to be answered.',
-        },
-      },
-      required: ['question'],
-      description: 'An open-ended question.',
-    },
-    {
-      type: 'object',
-      properties: {
-        type: {
-          type: 'string',
-          enum: ['multiple-choice'],
-          description: 'The type of question to generate.',
-        },
-        question: {
-          type: 'string',
-          description: 'The question to be answered.',
-        },
-        options: {
-          type: 'array',
-          items: {
-            type: 'string',
+      description: 'A question to be answered, either open-ended or multiple-choice.',
+      anyOf: [
+        {
+          type: 'object',
+          properties: {
+            type: {
+              type: 'string',
+              enum: ['open-response'],
+              description: 'The type of question to generate.',
+            },
+            questionText: {
+              type: 'string',
+              description: 'The question to be answered.',
+            },
           },
-          description: 'An array of options for the question.',
+          required: ['questionText'],
+          description: 'An open-ended question.',
         },
-      },
-      required: ['question', 'options'],
-      description: 'A multiple-choice question with options.',
+        {
+          type: 'object',
+          properties: {
+            type: {
+              type: 'string',
+              enum: ['multiple-choice'],
+              description: 'The type of question to generate.',
+            },
+            questionText: {
+              type: 'string',
+              description: 'The question to be answered.',
+            },
+            options: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+              description: 'An array of options for the question.',
+            },
+          },
+          required: ['questionText', 'options'],
+          description: 'A multiple-choice question with options.',
+        }
+      ]
     }
-  ]
+  },
+  required: ['question'],
 };
 
 const assessmentReviewJsonSchema = {
@@ -161,7 +167,7 @@ function mount() {
     try {
       const result = await generateText(modelId, {prompt}, assessmentQuestionJsonSchema);
       feedbackContainer.textContent = 'Done!';
-      renderQuestion(modelId, result);
+      renderQuestion(modelId, result.question);
       console.log('Result:', result);
     } catch (error) {
       console.error('Error processing prompt:', error);
@@ -183,7 +189,7 @@ function renderQuestion(modelId, question) {
 
   const questionElement = template.cloneNode(true);
   questionElement.classList.remove('template');
-  questionElement.querySelector('.question-text').innerHTML = question.question;
+  questionElement.querySelector('.question-text').innerHTML = question.questionText;
 
   const choiceAnswers = {};
 
