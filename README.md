@@ -17,15 +17,16 @@ This repository contains various examples of AI applications built using differe
 
 Each example implements the same set of tools. These are very basic, they can serve as a starting point, and also as a way to compare the different examples through similar functionality.
 
-### Generate Text
+### Tools
+#### Generate Text
 
 The most basic tool, generating a single response from a single prompt. This can be a starting point for more complicated response formatting (html / markup / embedded stuff) or other prompt engineering. Layering custom functionality over generated responses with special formatting (established through the prompt) can have powerful results.
 
-### Chat
+#### Chat
 
 Very similar to "Generate Text" but with conversation structure. As an application developer trying to deliver value through a structured experience, Chats requre some setup with context and system prompts in order to achieve a specific goal.
 
-### Structured Data
+#### Structured Data
 
 The same idea as "Generate Text", but with structured json output controlled by a schema the application defines. The examples uses two schemas to both generate and score assessment questions.
 
