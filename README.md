@@ -19,7 +19,7 @@ Each example implements the same set of tools. These are very basic, they can se
 
 ### Generate Text
 
-The most basic tool, generating a single response from a single prompt. This can be a starting point for more complicated reaponse formatting (html / markup / embedded stuff) or other prompt engineering. Layering custom functionality over generated responses with special formatting (established through the prompt) can have powerful results.
+The most basic tool, generating a single response from a single prompt. This can be a starting point for more complicated response formatting (html / markup / embedded stuff) or other prompt engineering. Layering custom functionality over generated responses with special formatting (established through the prompt) can have powerful results.
 
 ### Chat
 
