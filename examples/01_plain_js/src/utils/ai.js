@@ -1,4 +1,4 @@
-import { API_URL, PROMPT_IDS, API_KEY, MODELS } from './config.js';
+import { API_URL, PROMPT_IDS, API_KEY, MODELS } from '../config.js';
 import { token } from './auth.js';
 
 const promptExecuteUrl = (promptType) => `${API_URL}/prompts/${PROMPT_IDS[promptType]}/execute`;

@@ -1,5 +1,6 @@
-import { generateText } from '../ai.js';
-import { loadStyle } from '../css.js';
+import { generateText } from '../utils/ai.js';
+import { loadStyle } from '../utils/css.js';
+import { renderOutput } from '../utils/output.js';
 import { MODELS } from '../config.js';
 
 const html = `
@@ -11,7 +12,11 @@ const html = `
     </label>
     <label>
       <span class="label-text">Enter your prompt:</span>
-      <textarea name="prompt" required>write a haiku</textarea>
+      <textarea name="prompt" required rows="6">
+write a haiku
+
+LaTeX notation should be used for math expressions. LaTeX math delimiters, which are \\(...\\) for in-line math, and \\[...\\] for displayed equations must be used.
+      </textarea>
     </label>
     <div class="form-bottom">
       <p id="feedback"></p>
@@ -72,7 +77,7 @@ function mount() {
 
     try {
       const result = await generateText(modelId, {prompt});
-      resultContainer.textContent = result;
+      renderOutput(result, resultContainer);
       feedbackContainer.textContent = 'Done!';
       console.log('Result:', result);
     } catch (error) {

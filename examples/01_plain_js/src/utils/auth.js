@@ -1,4 +1,4 @@
-import { TOKEN_URL } from './config.js';
+import { TOKEN_URL } from '../config.js';
 
 const search = location.search;
 const params = new URLSearchParams(search);
@@ -18,6 +18,17 @@ if (searchToken) {
 
 const explicitLogout = localStorage.getItem('explicit_logout') === 'true';
 export const token = localStorage.getItem('launch_token') || null;
+export const userInfo = decodeToken();
+
+console.log('User Info:', userInfo);
+
+export const shouldRenewToken = () => {
+  if (!userInfo || !userInfo.exp) return true;
+  const currentTime = Date.now() / 1000;
+  const timeLeft = userInfo.exp - currentTime;
+  console.log('Token time left (seconds):', timeLeft);
+  return timeLeft < (60 * 60 * 5); // 5 hours
+}
 
 export const redirectToAuth = (forceRelogin = explicitLogout) => {
   const redirectUrl = new URL(TOKEN_URL);
@@ -36,3 +47,15 @@ export const logout = () => {
   localStorage.setItem('explicit_logout', 'true');
   redirectToAuth(true);
 };
+
+function decodeToken() {
+  if (!token) return null;
+
+  try {
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    return JSON.parse(decodedPayload);
+  } catch (e) {
+    return null;
+  }
+}

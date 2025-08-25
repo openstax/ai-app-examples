@@ -1,5 +1,3 @@
-import { generateText } from '../ai.js';
-
 const html = `
   <h2>Not Found :(</h2>
 

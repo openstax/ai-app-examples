@@ -1,4 +1,4 @@
-import { loadStyle } from '../css.js';
+import { loadStyle } from '../utils/css.js';
 
 const html = `
   <nav class="home-nav">
@@ -11,9 +11,11 @@ const html = `
 `;
 
 export function loadHomeUI(container) {
-  container.innerHTML = html;
+  const { loaded, unload: unloadStyle } = loadStyle('./src/screens/home.css');
 
-  const { unload: unloadStyle } = loadStyle('./src/screens/home.css');
+  loaded.then(() => {
+    container.innerHTML = html;
+  });
 
   return () => {
     console.log('Unmounting Home UI');

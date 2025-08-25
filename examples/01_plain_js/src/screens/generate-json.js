@@ -1,5 +1,6 @@
-import { generateText } from '../ai.js';
-import { loadStyle } from '../css.js';
+import { generateText } from '../utils/ai.js';
+import { loadStyle } from '../utils/css.js';
+import { renderOutput } from '../utils/output.js';
 import { MODELS } from '../config.js';
 
 const assessmentQuestionJsonSchema = {
@@ -82,7 +83,11 @@ const html = `
     </label>
     <label>
       <span class="label-text">Enter your prompt:</span>
-      <textarea name="prompt" required>Write an assessment question about pizza.</textarea>
+      <textarea name="prompt" required rows="6">
+Write an assessment question about pizza. The assessment question should contain mathematical formulas.
+
+LaTeX notation should be used for math expressions. LaTeX math delimiters, which are \\(...\\) for in-line math, and \\[...\\] for displayed equations must be used.
+      </textarea>
     </label>
     <div class="form-bottom">
       <p id="prompt-feedback"></p>
@@ -189,7 +194,7 @@ function renderQuestion(modelId, question) {
 
   const questionElement = template.cloneNode(true);
   questionElement.classList.remove('template');
-  questionElement.querySelector('.question-text').innerHTML = question.questionText;
+  renderOutput(question.questionText, questionElement, '.question-text');
 
   const choiceAnswers = {};
 
@@ -201,7 +206,7 @@ function renderQuestion(modelId, question) {
 
     question.options.forEach((option, i) => {
       const thisOptionEl = optionEl.cloneNode(true);
-      thisOptionEl.querySelector('.label-text').innerHTML = option;
+      renderOutput(option, thisOptionEl, '.label-text');
       thisOptionEl.querySelector('input').value = `choice-${i}`;
       choiceAnswers[`choice-${i}`] = option;
       optionContainer.appendChild(thisOptionEl);

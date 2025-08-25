@@ -3,8 +3,8 @@ import { loadGenerateJsonUI } from './screens/generate-json.js';
 import { loadChatUI } from './screens/chat.js';
 import { loadHomeUI } from './screens/home.js';
 import { load404UI } from './screens/notFound.js';
-import { loadStyle } from './css.js';
-import { token, logout, redirectToAuth } from './auth.js';
+import { loadStyle } from './utils/css.js';
+import { token, shouldRenewToken, logout, redirectToAuth } from './utils/auth.js';
 import { createHashHistory } from '../node_modules/history/history.production.min.js';
 
 const router = (appContainer) => {
@@ -38,7 +38,7 @@ function appLoaded() {
   const appContainer = document.getElementById('app');
   const routeLocation = router(appContainer);
 
-  if (!token) {
+  if (shouldRenewToken()) {
     redirectToAuth();
   }
 

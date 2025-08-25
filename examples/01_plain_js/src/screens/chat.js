@@ -1,5 +1,6 @@
-import { generateChat } from '../ai.js';
-import { loadStyle } from '../css.js';
+import { generateChat } from '../utils/ai.js';
+import { renderOutput } from '../utils/output.js';
+import { loadStyle } from '../utils/css.js';
 import { MODELS } from '../config.js';
 
 const html = `
@@ -19,11 +20,14 @@ const html = `
     </label>
     <label>
       <span class="label-text">System Prompt:</span>
-      <textarea name="system" required>You are a friendly AI chat bot.</textarea>
+      <textarea name="system" required rows="6">You are a friendly AI chat bot.
+
+LaTeX notation should be used for math expressions. LaTeX math delimiters, which are \\(...\\) for in-line math, and \\[...\\] for displayed equations must be used.
+      </textarea>
     </label>
     <label>
       <span class="label-text">Message:</span>
-      <textarea name="prompt" required>Whats good today with my best AI friend?</textarea>
+      <textarea name="prompt" required rows="6">Whats good today with my best AI friend?</textarea>
     </label>
     <div class="form-bottom">
       <p id="feedback"></p>
@@ -113,7 +117,7 @@ function renderMessage(container, message) {
   const roleEl = messageEl.querySelector('.message-role');
   const textEl = messageEl.querySelector('.message-text');
   roleEl.textContent = role === 'user' ? 'Your message' : 'Bot message';
-  textEl.textContent = text;
+  renderOutput(text, textEl);
 
   container.appendChild(messageEl);
 }
