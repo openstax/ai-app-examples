@@ -6,7 +6,9 @@
     "dompurify",
     "noopener",
     "noreferrer",
-    "openstax"
+    "nvmrc",
+    "openstax",
+    "vite"
   ],
   "flagWords": [],
   "ignorePaths": [

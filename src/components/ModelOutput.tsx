@@ -23,7 +23,7 @@ export const ModelOutput = (props: { value: string, className: string }) => {
     if (ref.current) {
       let content = props.value;
 
-      content = assertString(marked.parse(content));
+      content = assertString(marked.parse(content), new Error('Marked should return a string'));
       content = DOMPurify.sanitize(content);
 
       console.log('Rendered content', content);

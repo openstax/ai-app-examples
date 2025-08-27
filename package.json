@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/setup.js && vite",
     "ci:typecheck": "tsc -b --noEmit",
     "ci:spelling": "git ls-files -- . | cspell lint -c ./cspell.json --quiet --file-list stdin",
     "ci": "npm-run-all ci:*",
