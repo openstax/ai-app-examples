@@ -59,7 +59,9 @@ To run this project locally:
 ### Scripts
 
 `npm run dev` - start the local development server
+
 `npm run ci` - run all checks
+
 `npm run build` - build the app for production
 
 ## Adding Tools
