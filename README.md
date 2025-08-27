@@ -11,6 +11,8 @@ A live demo of this app is available at: https://openstax.github.io/ai-app-examp
 - Deployable as a static site. No server required. Demo uses GitHub Pages.
 - Uses OpenStax Accounts for authentication
 - Uses OpenStax's Promptly API for AI inference
+- OpenStax's Promptly API allows selection of various AI models from different providers
+- OpenStax's Promptly API provides a consistent interface for tasks like generate, chat, json schema generation - regardless of provider (and implements things like JSON schema support when the provider does not)
 - Retrieves a Promptly session token and use it to authenticate API calls
 - Sample logic for navigation, styling, form submissions, etc.
 - Output formatting for the model responses including LaTeX math and markdown
