@@ -1,0 +1,19 @@
+{
+  "version": "0.2",
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
+  "language": "en",
+  "words": [
+    "dompurify",
+    "noopener",
+    "noreferrer",
+    "openstax"
+  ],
+  "flagWords": [],
+  "ignorePaths": [
+    "*.svg",
+    "coverage",
+    "package.json",
+    "package-lock.json",
+    "node_modules/**"
+  ]
+}
