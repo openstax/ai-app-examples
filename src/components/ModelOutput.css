@@ -1,0 +1,12 @@
+
+.model-output {
+
+  pre {
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #e0e0e0;
+    font-family: 'Courier New', Courier, monospace;
+  }
+}

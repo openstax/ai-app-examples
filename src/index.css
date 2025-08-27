@@ -1,0 +1,61 @@
+html {
+  font-size: 62.5%;
+  text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+  font-family: Helvetica, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1.6rem;
+  --text-color: #484848;
+  --content-width: calc(100% - 3rem);
+  --content-max-width: 50rem;
+}
+
+main {
+  /* 1.5rem on each side even when margin auto is totally collapsed */
+  width: var(--content-width);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  color: var(--text-color);
+}
+
+form {
+  label {
+    display: block;
+    margin-bottom: 1rem;
+
+    > .label-text {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+  }
+
+  .form-bottom {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+
+    button {
+      margin-top: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+      flex: 1;
+    }
+  }
+}
