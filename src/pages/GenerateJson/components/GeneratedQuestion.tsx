@@ -14,6 +14,7 @@ export const GeneratedQuestion = ({question, modelId}: {question: Question, mode
     <form className="question-form" onSubmit={onSubmit}>
       {question.type === 'multiple-choice' &&
         <fieldset className="radio-group">
+          <legend>Your answer</legend>
           {question.options.map((option, index) => (
             /* eslint-disable-next-line react-x/no-array-index-key */
             <label className="radio-option" key={index}>
