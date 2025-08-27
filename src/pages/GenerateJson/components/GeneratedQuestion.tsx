@@ -10,7 +10,7 @@ export const GeneratedQuestion = ({question, modelId}: {question: Question, mode
   const {feedback, onSubmit} = usePromptState(question, modelId);
 
   return <div className="generated-question">
-    <p className="question-text">{question.questionText}</p>
+    <ModelOutput className="question-text" value={question.questionText} />
     <form className="question-form" onSubmit={onSubmit}>
       {question.type === 'multiple-choice' &&
         <fieldset className="radio-group">
@@ -18,7 +18,7 @@ export const GeneratedQuestion = ({question, modelId}: {question: Question, mode
             /* eslint-disable-next-line react-x/no-array-index-key */
             <label className="radio-option" key={index}>
               <input type="radio" name="answer" value={option} />
-              <span className="label-text">{option}</span>
+              <ModelOutput className="label-text" value={option} />
             </label>
           ))}
         </fieldset>
