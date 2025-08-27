@@ -14,6 +14,12 @@ A live demo of this app is available at: https://openstax.github.io/ai-app-examp
 - Sample logic for navigation, styling, form submissions, etc. 
 - Output formatting for the model responses including LaTeX math and markdown
 
+## Implementation notes
+- React with Vite
+- no CSS framework, just simple CSS modules
+- React Router for navigation
+- Navigation with hash routing so it can be hosted on GitHub Pages
+
 ## Sample Tools
 
 The homepage has links to three sample tools. These are very simple and are meant to provide example logic for the core types of interactions.
