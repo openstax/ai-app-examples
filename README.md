@@ -12,7 +12,7 @@ A live demo of this app is available at: https://openstax.github.io/ai-app-examp
 - Uses OpenStax Accounts for authentication
 - Uses OpenStax's Promptly API for AI inference
 - Retrieves a Promptly session token and use it to authenticate API calls
-- Sample logic for navigation, styling, form submissions, etc. 
+- Sample logic for navigation, styling, form submissions, etc.
 - Output formatting for the model responses including LaTeX math and markdown
 
 ## Implementation notes
@@ -55,6 +55,12 @@ To run this project locally:
 1) run `npm install` in the root of the repository
 1) run `npm run dev` to start the local server
     - you will be prompted for your Promptly API key on the first launch
+
+### Scripts
+
+`npm run dev` - start the local development server
+`npm run ci` - run all checks
+`npm run build` - build the app for production
 
 ## Adding Tools
 
