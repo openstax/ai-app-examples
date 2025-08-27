@@ -8,6 +8,7 @@ This app contains examples of basic AI interactions to be used as a starting poi
 A live demo of this app is available at: https://openstax.github.io/ai-app-examples/
 
 ## Batteries Included
+- Deployable as a static site. No server required. Demo uses GitHub Pages.
 - Uses OpenStax Accounts for authentication
 - Uses OpenStax's Promptly API for AI inference
 - Retrieves a Promptly session token and use it to authenticate API calls
