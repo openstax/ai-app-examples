@@ -3,6 +3,10 @@
 
 This app contains examples of basic AI interactions to be used as a starting point for building more complex experiences.
 
+## Demo
+
+A live demo of this app is available at: https://openstax.github.io/ai-app-examples/
+
 ## Batteries Included
 - Uses OpenStax Accounts for authentication
 - Uses OpenStax's Promptly API for AI inference
@@ -44,6 +48,10 @@ To run this project locally:
 1) run `npm install` in the root of the repository
 1) run `npm run dev` to start the local server
     - you will be prompted for your Promptly API key on the first launch
+
+## Adding Tools
+
+The example tools are defined in separate pages in the `src/pages` directory. You can add additional tools by creating new pages and adding them to the router in `src/main.jsx`, and linking to them from the homepage at `src/pages/Home/index.tsx'.
 
 ## Deployment
 Apps following this example can be deployed anywhere, but you will need a Promptly API key approved for your environment's hostname. This example repository deploys to GitHub Pages.
