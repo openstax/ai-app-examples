@@ -14,7 +14,7 @@ export const useAuth = (): AuthContextType => {
   return React.use(AuthContext)();
 };
 
-export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = React.useState<UserInfo | null>(userInfo);
 
   React.useEffect(() => {

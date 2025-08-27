@@ -33,7 +33,7 @@ export const ModelOutput = (props: { value: string, className: string }) => {
         batchTypesets.push(ref.current);
       }
 
-      if (!typesetting) typesetting = typesetMath();
+      typesetting ??= typesetMath();
     }
   }, [props.value]);
 

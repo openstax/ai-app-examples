@@ -15,9 +15,7 @@ export const NavBar = () => {
     document.body.insertBefore(navRef.current, document.body.firstChild);
 
     return () => {
-      if (navRef.current) {
-        document.body.removeChild(navRef.current);
-      }
+      document.body.removeChild(navRef.current);
     };
   }, []);
 

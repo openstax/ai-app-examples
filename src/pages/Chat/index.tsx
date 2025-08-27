@@ -18,6 +18,7 @@ export const Chat = () => {
     <h2>Chat</h2>
     <ol className="chat-messages">
       {messages.map((message, index) => (
+        /* eslint-disable-next-line react-x/no-array-index-key */
         <li className={`message role-${message.role}`} key={index}>
           <div className="message-content">
             <span className="message-role">{message.role}</span>
@@ -65,7 +66,8 @@ const usePromptState = () => {
     const system = assertString(formData.get('system'), new Error('Got non-string formData for system'));
     const prompt = assertString(formData.get('prompt'), new Error('Got non-string formData for prompt'));
 
-    form.prompt.value = '';
+    const promptTextarea = form.elements.namedItem('prompt') as HTMLTextAreaElement;
+    promptTextarea.value = '';
 
     setFeedback('Please wait, processing...');
     const newMessages = [...messages, { role: 'user', content: {text: prompt} }];

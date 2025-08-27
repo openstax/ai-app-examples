@@ -43,7 +43,7 @@ jobs:
         run: npm ci
 
       - name: Run Check 
-        run: npm run typecheck
+        run: npm run ci:typecheck
   
   spelling:
     runs-on: ubuntu-latest
@@ -62,4 +62,4 @@ jobs:
         run: npm ci
 
       - name: Run Check 
-        run: npm run spelling 
+        run: npm run ci:spelling 
