@@ -57,7 +57,7 @@ const usePromptState = () => {
       .then(response => {
         console.log('AI Response:', response);
         setResult({question: response.question, modelId});
-        setFeedback(null);
+        setFeedback('Done!');
       })
       .catch((error: unknown) => {
         console.error('Error generating text:', error);

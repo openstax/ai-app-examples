@@ -77,7 +77,7 @@ const usePromptState = () => {
       .then(response => {
         console.log('AI Response:', response);
         setMessages(previous => [...previous, { role: 'assistant', content: {text: response} }]);
-        setFeedback(null);
+        setFeedback('Done!');
       })
       .catch((error: unknown) => {
         console.error('Error generating text:', error);
