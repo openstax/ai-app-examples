@@ -33,7 +33,7 @@ const FeedbackPopoverContent: React.FC<FeedbackPopoverContentProps> = ({
   onClear,
   onClose
 }) => {
-  const state = React.useContext(OverlayTriggerStateContext);
+  const state = React.use(OverlayTriggerStateContext);
 
   const handleSave = () => {
     onSave();
@@ -67,7 +67,7 @@ const FeedbackPopoverContent: React.FC<FeedbackPopoverContentProps> = ({
           <Label>Additional comments (optional)</Label>
           <TextArea
             value={feedbackText}
-            onChange={(e) => setFeedbackText(e.target.value)}
+            onChange={(e) => { setFeedbackText(e.target.value); }}
             placeholder="Share more details about your feedback..."
             className="feedback-input"
           />
@@ -120,7 +120,7 @@ export const Feedback: React.FC<FeedbackProps> = ({
         <DialogTrigger>
           <Button
             className={`feedback-button ${selectedRating === 1 ? 'selected' : ''}`}
-            onPress={() => handleButtonClick(1)}
+            onPress={() => { handleButtonClick(1); }}
             aria-label="Thumbs up"
           >
             <FaRegThumbsUp />
@@ -131,7 +131,7 @@ export const Feedback: React.FC<FeedbackProps> = ({
               setFeedbackText={setFeedbackText}
               onSave={handleSave}
               onClear={handleClear}
-              onClose={() => {}}
+              onClose={() => { /* empty */ }}
             />
           </Popover>
         </DialogTrigger>
@@ -139,7 +139,7 @@ export const Feedback: React.FC<FeedbackProps> = ({
         <DialogTrigger>
           <Button
             className={`feedback-button ${selectedRating === -1 ? 'selected' : ''}`}
-            onPress={() => handleButtonClick(-1)}
+            onPress={() => { handleButtonClick(-1); }}
             aria-label="Thumbs down"
           >
             <FaRegThumbsDown />
@@ -150,7 +150,7 @@ export const Feedback: React.FC<FeedbackProps> = ({
               setFeedbackText={setFeedbackText}
               onSave={handleSave}
               onClear={handleClear}
-              onClose={() => {}}
+              onClose={() => { /* empty */ }}
             />
           </Popover>
         </DialogTrigger>

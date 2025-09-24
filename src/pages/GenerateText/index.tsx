@@ -37,7 +37,7 @@ export const GenerateText = () => {
     <div className="generate-text-output">
       <h2>Output:</h2>
       <ModelOutput className="result" value={result?.text ?? ''} />
-      <Feedback setRating={() => {}} setFeedback={() => {}} onClear={() => {}} />
+      <Feedback setRating={() => { /* empty */ }} setFeedback={() => { /* empty */ }} onClear={() => { /* empty */ }} />
     </div>
   </>;
 }

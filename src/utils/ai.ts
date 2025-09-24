@@ -1,5 +1,6 @@
 import { API_URL, PROMPT_IDS, API_KEY } from '../config.ts';
 import { token } from './auth.ts';
+import { assertString } from "./assertions";
 
 export interface GenerateInput {
   prompt: string;
@@ -48,7 +49,9 @@ export const generateText = async (modelId: number, input: GenerateInput) => {
     body: JSON.stringify(payload)
   });
 
-  const executionId = fetchResponse.headers.get('X-Execution-ID') as string;
+  const executionId = assertString(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing X-Execution-ID header')
+  );
   const response = await fetchResponse.json() as { text: string };
 
   console.log('Response from AI:', response);
@@ -59,7 +62,8 @@ export const generateText = async (modelId: number, input: GenerateInput) => {
   };
 };
 
-export const generateJson = async <T>(modelId: number, input: GenerateInput, jsonSchema: JsonSchema) => {
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
+export const generateJson = async <T>(modelId: number, input: GenerateInput, jsonSchema: JsonSchema): Promise<{data: T, executionId: string}> => {
   const payload = { input, modelId, jsonSchema };
 
   const promptUrl = promptExecuteUrl('json');
@@ -70,7 +74,9 @@ export const generateJson = async <T>(modelId: number, input: GenerateInput, jso
     body: JSON.stringify(payload)
   });
 
-  const executionId = fetchResponse.headers.get('X-Execution-ID') as string;
+  const executionId = assertString(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing X-Execution-ID header')
+  );
   const response = await fetchResponse.json() as { data: T };
 
   console.log('Response from AI:', response);
@@ -91,7 +97,9 @@ export const generateChat = async (modelId: number, input: ChatInput) => {
     body: JSON.stringify(payload)
   });
 
-  const executionId = fetchResponse.headers.get('X-Execution-ID') as string;
+  const executionId = assertString(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing X-Execution-ID header')
+  );
   const response = await fetchResponse.json() as { text: string };
 
   console.log('Response from AI:', response);
