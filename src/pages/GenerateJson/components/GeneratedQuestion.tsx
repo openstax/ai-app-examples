@@ -56,7 +56,7 @@ ${mathWithMarkdown}`;
     generateJson<AssessmentReview>(modelId, {prompt}, assessmentReviewJsonSchema)
       .then(response => {
         console.log('AI Response:', response);
-        setFeedback(`Score given: ${(response.score * 100).toFixed(2)}% - ${response.feedback}`);
+        setFeedback(`Score given: ${(response.data.score * 100).toFixed(2)}% - ${response.data.feedback}`);
       })
       .catch((error: unknown) => {
         console.error('Error generating text:', error);

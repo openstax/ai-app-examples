@@ -36,7 +36,7 @@ export const GenerateText = () => {
     </form>
     <div className="generate-text-output">
       <h2>Output:</h2>
-      <ModelOutput className="result" value={result ?? ''} />
+      <ModelOutput className="result" value={result?.text ?? ''} />
       <Feedback setRating={() => {}} setFeedback={() => {}} onClear={() => {}} />
     </div>
   </>;
@@ -44,7 +44,7 @@ export const GenerateText = () => {
 
 const usePromptState = () => {
   const [feedback, setFeedback] = React.useState<string | null>(null);
-  const [result, setResult] = React.useState<string | null>(null);
+  const [result, setResult] = React.useState<{text: string, executionId: string} | null>(null);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

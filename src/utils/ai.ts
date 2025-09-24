@@ -42,17 +42,21 @@ export const generateText = async (modelId: number, input: GenerateInput) => {
 
   const promptUrl = promptExecuteUrl('generate');
 
-  const response = await authorizedFetch(promptUrl, {
+  const fetchResponse = await authorizedFetch(promptUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload)
-  })
-    .then(response => response.json() as Promise<{ text: string }>)
-  ;
+  });
+
+  const executionId = fetchResponse.headers.get('X-Execution-ID') as string;
+  const response = await fetchResponse.json() as { text: string };
 
   console.log('Response from AI:', response);
 
-  return response.text;
+  return {
+    text: response.text,
+    executionId
+  };
 };
 
 export const generateJson = async <T>(modelId: number, input: GenerateInput, jsonSchema: JsonSchema) => {
@@ -60,32 +64,40 @@ export const generateJson = async <T>(modelId: number, input: GenerateInput, jso
 
   const promptUrl = promptExecuteUrl('json');
 
-  const response = await authorizedFetch(promptUrl, {
+  const fetchResponse = await authorizedFetch(promptUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload)
-  })
-    .then(response => response.json() as Promise<{ data: T }>)
-  ;
+  });
+
+  const executionId = fetchResponse.headers.get('X-Execution-ID') as string;
+  const response = await fetchResponse.json() as { data: T };
 
   console.log('Response from AI:', response);
 
-  return response.data;
+  return {
+    data: response.data,
+    executionId
+  };
 };
 
 export const generateChat = async (modelId: number, input: ChatInput) => {
   const payload = { input, modelId };
 
   const promptUrl = promptExecuteUrl('chat');
-  const response = await authorizedFetch(promptUrl, {
+  const fetchResponse = await authorizedFetch(promptUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload)
-  })
-    .then(response => response.json() as Promise<{ text: string }>)
-  ;
+  });
+
+  const executionId = fetchResponse.headers.get('X-Execution-ID') as string;
+  const response = await fetchResponse.json() as { text: string };
 
   console.log('Response from AI:', response);
 
-  return response.text;
+  return {
+    text: response.text,
+    executionId
+  };
 };

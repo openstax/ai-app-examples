@@ -17,14 +17,14 @@ export const Chat = () => {
   return <>
     <h2>Chat</h2>
     <ol className="chat-messages">
-      {messages.map((message, index) => (
+      {messages.map((messageItem, index) => (
         /* eslint-disable-next-line react-x/no-array-index-key */
-        <li className={`message role-${message.role}`} key={index}>
+        <li className={`message role-${messageItem.message.role}`} key={index}>
           <div className="message-content">
-            <span className="message-role">{message.role}</span>
-            {message.role === 'assistant'
-              ? <ModelOutput className="message-text" value={message.content.text} />
-              : <span className="message-text">{message.content.text}</span>}
+            <span className="message-role">{messageItem.message.role}</span>
+            {messageItem.message.role === 'assistant'
+              ? <ModelOutput className="message-text" value={messageItem.message.content.text} />
+              : <span className="message-text">{messageItem.message.content.text}</span>}
           </div>
         </li>
       ))}
@@ -56,7 +56,7 @@ export const Chat = () => {
 
 const usePromptState = () => {
   const [feedback, setFeedback] = React.useState<string | null>(null);
-  const [messages, setMessages] = React.useState<ChatMessage[]>([]);
+  const [messages, setMessages] = React.useState<Array<{message: ChatMessage, executionId: string | null}>>([]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,13 +70,13 @@ const usePromptState = () => {
     promptTextarea.value = '';
 
     setFeedback('Please wait, processing...');
-    const newMessages = [...messages, { role: 'user', content: {text: prompt} }];
+    const newMessages = [...messages, { message: { role: 'user', content: {text: prompt} }, executionId: null }];
     setMessages(newMessages);
 
-    generateChat(modelId, { messages: newMessages, system })
+    generateChat(modelId, { messages: newMessages.map(m => m.message), system })
       .then(response => {
         console.log('AI Response:', response);
-        setMessages(previous => [...previous, { role: 'assistant', content: {text: response} }]);
+        setMessages(previous => [...previous, { message: { role: 'assistant', content: {text: response.text} }, executionId: response.executionId }]);
         setFeedback('Done!');
       })
       .catch((error: unknown) => {
