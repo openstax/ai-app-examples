@@ -118,3 +118,12 @@ export const setFeedback = async (executionId: number, feedback: {feedback: stri
     body: JSON.stringify({ feedback, executionId })
   });
 };
+
+export const setMetadata = async (executionId: number, metadata: string) => {
+
+  await authorizedFetch(`${API_URL}/metadata`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ metadata, executionId })
+  });
+};
