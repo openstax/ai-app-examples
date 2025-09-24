@@ -1,6 +1,6 @@
 import { API_URL, PROMPT_IDS, API_KEY } from '../config.ts';
 import { token } from './auth.ts';
-import { assertString } from "./assertions";
+import { coerceNumber } from "./assertions";
 
 export interface GenerateInput {
   prompt: string;
@@ -49,8 +49,8 @@ export const generateText = async (modelId: number, input: GenerateInput) => {
     body: JSON.stringify(payload)
   });
 
-  const executionId = assertString(fetchResponse.headers.get('X-Execution-ID'),
-    new Error('Missing X-Execution-ID header')
+  const executionId = coerceNumber(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing or invalid X-Execution-ID header')
   );
   const response = await fetchResponse.json() as { text: string };
 
@@ -63,7 +63,7 @@ export const generateText = async (modelId: number, input: GenerateInput) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
-export const generateJson = async <T>(modelId: number, input: GenerateInput, jsonSchema: JsonSchema): Promise<{data: T, executionId: string}> => {
+export const generateJson = async <T>(modelId: number, input: GenerateInput, jsonSchema: JsonSchema) => {
   const payload = { input, modelId, jsonSchema };
 
   const promptUrl = promptExecuteUrl('json');
@@ -74,8 +74,8 @@ export const generateJson = async <T>(modelId: number, input: GenerateInput, jso
     body: JSON.stringify(payload)
   });
 
-  const executionId = assertString(fetchResponse.headers.get('X-Execution-ID'),
-    new Error('Missing X-Execution-ID header')
+  const executionId = coerceNumber(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing or invalid X-Execution-ID header')
   );
   const response = await fetchResponse.json() as { data: T };
 
@@ -97,8 +97,8 @@ export const generateChat = async (modelId: number, input: ChatInput) => {
     body: JSON.stringify(payload)
   });
 
-  const executionId = assertString(fetchResponse.headers.get('X-Execution-ID'),
-    new Error('Missing X-Execution-ID header')
+  const executionId = coerceNumber(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing or invalid X-Execution-ID header')
   );
   const response = await fetchResponse.json() as { text: string };
 
@@ -108,4 +108,13 @@ export const generateChat = async (modelId: number, input: ChatInput) => {
     text: response.text,
     executionId
   };
+};
+
+export const setFeedback = async (executionId: number, feedback: {feedback: string; rating: number}) => {
+
+  await authorizedFetch(`${API_URL}/feedback`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ feedback, executionId })
+  });
 };

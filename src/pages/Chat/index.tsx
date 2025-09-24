@@ -56,7 +56,7 @@ export const Chat = () => {
 
 const usePromptState = () => {
   const [feedback, setFeedback] = React.useState<string | null>(null);
-  const [messages, setMessages] = React.useState<{message: ChatMessage, executionId: string | null}[]>([]);
+  const [messages, setMessages] = React.useState<{message: ChatMessage, executionId: number | null}[]>([]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

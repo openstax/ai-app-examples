@@ -42,7 +42,7 @@ export const GenerateJson = () => {
 
 const usePromptState = () => {
   const [feedback, setFeedback] = React.useState<string | null>(null);
-  const [result, setResult] = React.useState<{question: Question; modelId: number; executionId: string} | null>(null);
+  const [result, setResult] = React.useState<{question: Question; modelId: number; executionId: number} | null>(null);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

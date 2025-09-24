@@ -4,7 +4,7 @@ import { mathWithMarkdown } from '@/utils/snippets.ts';
 import { ModelOutput } from '@/components/ModelOutput.tsx';
 import { MODELS } from '@/config.ts';
 import { coerceNumber, assertString } from "@/utils/assertions";
-import { Feedback } from "@/components/FeedbackComponent";
+import { ExecutionFeedback } from "@/components/ExecutionFeedback";
 import './style.css';
 
 const defaultValue = `write a haiku
@@ -37,14 +37,14 @@ export const GenerateText = () => {
     <div className="generate-text-output">
       <h2>Output:</h2>
       <ModelOutput className="result" value={result?.text ?? ''} />
-      <Feedback setRating={() => { /* empty */ }} setFeedback={() => { /* empty */ }} onClear={() => { /* empty */ }} />
+      <ExecutionFeedback executionId={result?.executionId} />
     </div>
   </>;
 }
 
 const usePromptState = () => {
   const [feedback, setFeedback] = React.useState<string | null>(null);
-  const [result, setResult] = React.useState<{text: string, executionId: string} | null>(null);
+  const [result, setResult] = React.useState<{text: string, executionId: number} | null>(null);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
