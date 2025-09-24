@@ -1,3 +1,4 @@
+/* spell-checker: ignore xmark */
 import React, { useState } from 'react';
 import { FaRegThumbsUp, FaRegThumbsDown, FaXmark } from 'react-icons/fa6';
 import {
