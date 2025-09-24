@@ -4,6 +4,7 @@ import { mathWithMarkdown } from '@/utils/snippets.ts';
 import { ModelOutput } from '@/components/ModelOutput.tsx';
 import { MODELS } from '@/config.ts';
 import { coerceNumber, assertString } from "@/utils/assertions";
+import { Feedback } from "@/components/FeedbackComponent";
 import './style.css';
 
 const defaultValue = `write a haiku
@@ -36,6 +37,7 @@ export const GenerateText = () => {
     <div className="generate-text-output">
       <h2>Output:</h2>
       <ModelOutput className="result" value={result ?? ''} />
+      <Feedback setRating={() => {}} setFeedback={() => {}} onClear={() => {}} />
     </div>
   </>;
 }
