@@ -69,7 +69,7 @@ const usePromptState = (executionId: number, question: Question, modelId: number
 ${mathWithMarkdown}`;
 
     const answerInfo = answerIndex !== undefined
-      ? `User answer: option ${1 + answerIndex} - ${answerText.substring(0, 1000)}`
+      ? `User answer: option ${(1 + answerIndex).toString()} - ${answerText.substring(0, 1000)}`
       : `User answer: ${answerText.substring(0, 1000)}`;
 
     setMetadata(executionId, answerInfo)
