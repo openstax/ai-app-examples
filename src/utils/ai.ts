@@ -1,5 +1,6 @@
 import { API_URL, PROMPT_IDS, API_KEY } from '../config.ts';
 import { token } from './auth.ts';
+import { coerceNumber } from "./assertions";
 
 export interface GenerateInput {
   prompt: string;
@@ -42,50 +43,78 @@ export const generateText = async (modelId: number, input: GenerateInput) => {
 
   const promptUrl = promptExecuteUrl('generate');
 
-  const response = await authorizedFetch(promptUrl, {
+  const fetchResponse = await authorizedFetch(promptUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload)
-  })
-    .then(response => response.json() as Promise<{ text: string }>)
-  ;
+  });
+
+  const executionId = coerceNumber(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing or invalid X-Execution-ID header')
+  );
+  const response = await fetchResponse.json() as { text: string };
 
   console.log('Response from AI:', response);
 
-  return response.text;
+  return {
+    text: response.text,
+    executionId
+  };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export const generateJson = async <T>(modelId: number, input: GenerateInput, jsonSchema: JsonSchema) => {
   const payload = { input, modelId, jsonSchema };
 
   const promptUrl = promptExecuteUrl('json');
 
-  const response = await authorizedFetch(promptUrl, {
+  const fetchResponse = await authorizedFetch(promptUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload)
-  })
-    .then(response => response.json() as Promise<{ data: T }>)
-  ;
+  });
+
+  const executionId = coerceNumber(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing or invalid X-Execution-ID header')
+  );
+  const response = await fetchResponse.json() as { data: T };
 
   console.log('Response from AI:', response);
 
-  return response.data;
+  return {
+    data: response.data,
+    executionId
+  };
 };
 
 export const generateChat = async (modelId: number, input: ChatInput) => {
   const payload = { input, modelId };
 
   const promptUrl = promptExecuteUrl('chat');
-  const response = await authorizedFetch(promptUrl, {
+  const fetchResponse = await authorizedFetch(promptUrl, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload)
-  })
-    .then(response => response.json() as Promise<{ text: string }>)
-  ;
+  });
+
+  const executionId = coerceNumber(fetchResponse.headers.get('X-Execution-ID'),
+    new Error('Missing or invalid X-Execution-ID header')
+  );
+  const response = await fetchResponse.json() as { text: string };
 
   console.log('Response from AI:', response);
 
-  return response.text;
+  return {
+    text: response.text,
+    executionId
+  };
+};
+
+export const setFeedback = async (executionId: number, feedback: {feedback: string; rating: number}) => {
+
+  await authorizedFetch(`${API_URL}/feedback`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ feedback, executionId })
+  });
 };
