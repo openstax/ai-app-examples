@@ -1,5 +1,4 @@
 
-
 export const assessmentQuestionJsonSchema = {
   type: 'object',
   properties: {
@@ -20,7 +19,8 @@ export const assessmentQuestionJsonSchema = {
               description: 'The question to be answered.',
             },
           },
-          required: ['questionText'],
+          required: ['type', 'questionText'],
+          additionalProperties: false,
           description: 'An open-ended question.',
         },
         {
@@ -43,12 +43,14 @@ export const assessmentQuestionJsonSchema = {
               description: 'An array of options for the question.',
             },
           },
-          required: ['questionText', 'options'],
+          required: ['type', 'questionText', 'options'],
+          additionalProperties: false,
           description: 'A multiple-choice question with options.',
         }
       ]
     }
   },
+  additionalProperties: false,
   required: ['question'],
 };
 
@@ -67,5 +69,6 @@ export const assessmentReviewJsonSchema = {
     },
   },
   required: ['score', 'feedback'],
+  additionalProperties: false,
   description: 'An assessment of the provided answer.',
 };

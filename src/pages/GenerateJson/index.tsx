@@ -36,7 +36,7 @@ export const GenerateJson = () => {
         <button type="submit">Submit</button>
       </div>
     </form>
-    {result && <GeneratedQuestion {...result} />}
+    {result && <GeneratedQuestion key={result.executionId} {...result} />}
   </>;
 };
 

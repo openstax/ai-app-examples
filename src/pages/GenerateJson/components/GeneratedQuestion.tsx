@@ -5,9 +5,15 @@ import { assessmentReviewJsonSchema } from "../schemas";
 import { mathWithMarkdown } from '@/utils/snippets.ts';
 import { ModelOutput } from "@/components/ModelOutput";
 import { assertString } from "@/utils/assertions";
+import { coerceNumber } from "../../../utils/assertions";
+import { setMetadata } from "../../../utils/ai";
 
-export const GeneratedQuestion = ({question, modelId}: {question: Question, modelId: number}) => {
-  const {feedback, onSubmit} = usePromptState(question, modelId);
+export const GeneratedQuestion = ({executionId, question, modelId}: {
+  question: Question,
+  modelId: number,
+  executionId: number
+}) => {
+  const {feedback, onSubmit} = usePromptState(executionId, question, modelId);
 
   return <div className="generated-question">
     <ModelOutput className="question-text" value={question.questionText} />
@@ -18,7 +24,7 @@ export const GeneratedQuestion = ({question, modelId}: {question: Question, mode
           {question.options.map((option, index) => (
             /* eslint-disable-next-line react-x/no-array-index-key */
             <label className="radio-option" key={index}>
-              <input type="radio" name="answer" value={option} />
+              <input type="radio" name="answer" value={index} />
               <ModelOutput className="label-text" value={option} />
             </label>
           ))}
@@ -38,7 +44,7 @@ export const GeneratedQuestion = ({question, modelId}: {question: Question, mode
   </div>;
 };
 
-const usePromptState = (question: Question, modelId: number) => {
+const usePromptState = (executionId: number, question: Question, modelId: number) => {
   const [feedback, setFeedback] = React.useState<string | null>(null);
 
   const onSubmit = (e: React.FormEvent) => {
@@ -49,9 +55,28 @@ const usePromptState = (question: Question, modelId: number) => {
 
     setFeedback('Please wait, processing...');
 
-    const prompt = `Given the following question definition: ${JSON.stringify(question)}, assess the answer: "${answer}"
+    const answerIndex = question.type === 'multiple-choice'
+      ? coerceNumber(answer,
+        new Error('Got non-number formData for answer')
+      )
+      : undefined;
+
+    const answerText = answerIndex !== undefined && question.type === 'multiple-choice'
+      ? question.options[answerIndex] : answer;
+
+    const prompt = `Given the following question definition: ${JSON.stringify(question)}, assess the answer: "${answerText}"
 
 ${mathWithMarkdown}`;
+
+    const answerInfo = answerIndex !== undefined
+      ? `User answer: option ${1 + answerIndex} - ${answerText.substring(0, 1000)}`
+      : `User answer: ${answerText.substring(0, 1000)}`;
+
+    setMetadata(executionId, answerInfo)
+      .catch((error: unknown) => {
+        console.error('Error setting metadata:', error);
+      })
+    ;
 
     generateJson<AssessmentReview>(modelId, {prompt}, assessmentReviewJsonSchema)
       .then(response => {
