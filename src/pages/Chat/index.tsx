@@ -5,6 +5,7 @@ import { mathWithMarkdown } from "@/utils/snippets";
 import { ModelOutput } from "@/components/ModelOutput";
 import { generateChat } from "@/utils/ai";
 import { assertString, coerceNumber } from "@/utils/assertions";
+import { ExecutionFeedback } from "@/components/ExecutionFeedback";
 import './style.css';
 
 const defaultSystemPrompt = `You are a friendly AI chat bot.
@@ -26,6 +27,7 @@ export const Chat = () => {
               ? <ModelOutput className="message-text" value={messageItem.message.content.text} />
               : <span className="message-text">{messageItem.message.content.text}</span>}
           </div>
+          <ExecutionFeedback executionId={messageItem.executionId} />
         </li>
       ))}
     </ol>
