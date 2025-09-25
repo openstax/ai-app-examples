@@ -68,6 +68,36 @@ All AI operations return an `executionId` that enables additional data collectio
 3. Add navigation link in `src/pages/Home/index.tsx`
 4. Follow existing patterns for API integration and styling
 
+### Project Guidelines
+
+**UI Components & Libraries**
+- **React Aria Components** - Use for accessible UI primitives (buttons, dialogs, popovers, text fields). Already configured and used in FeedbackComponent
+- **React Icons** - Use `react-icons/fa6` for all icons. Prefer FontAwesome 6 regular icons (e.g., `FaRegThumbsUp`, `FaXmark`)
+- **No CSS Framework** - Project intentionally avoids frameworks like Bootstrap/Tailwind. Use vanilla CSS modules
+
+**Content Rendering**
+- **ModelOutput Component** - Use `src/components/ModelOutput.tsx` for displaying AI-generated content. Handles markdown parsing, HTML sanitization, and MathJax rendering automatically
+- **Math Formatting** - For proper math output formatting to work, include the `mathWithMarkdown` snippet from `src/utils/snippets.ts` in AI prompts that may generate mathematical content
+
+**Data Validation & Schema**
+- **Zod** - Use for all schema validation and runtime type checking
+- **Type Derivation** - Derive TypeScript types from Zod schemas rather than defining separately
+- **JSON Schema Generation** - Use Zod's JSON schema generation for API contracts
+
+**Import Paths**
+- Use `@/` alias for absolute imports from `src/` directory (configured in Vite and TypeScript)
+- Example: `import { assertString } from "@/utils/assertions"`
+
+**Styling Conventions**
+- Each page/component has its own CSS file (e.g., `style.css`, `ComponentName.css`)
+- Global styles only in `src/index.css`
+- Use semantic CSS class names, not utility classes
+
+**Code Quality**
+- Strict TypeScript configuration enabled
+- Follow existing ESLint rules
+- Use spell-checker comments for technical terms: `/* spell-checker: ignore xmark */`
+
 ### Environment Setup
 
 The app requires a `VITE_API_KEY` environment variable for Promptly API access. The setup script (`scripts/setup.js`) handles initial configuration by prompting for the API key on first run.
