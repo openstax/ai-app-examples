@@ -1,7 +1,6 @@
 import React from 'react';
 import { generateJson } from '@/utils/ai.ts';
-import { AssessmentReview, Question } from "../types";
-import { assessmentReviewJsonSchema } from "../schemas";
+import { AssessmentReview, Question, assessmentReviewJsonSchema } from "../schemas";
 import { mathWithMarkdown } from '@/utils/snippets.ts';
 import { ModelOutput } from "@/components/ModelOutput";
 import { assertString } from "@/utils/assertions";

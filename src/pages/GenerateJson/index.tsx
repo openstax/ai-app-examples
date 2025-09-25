@@ -3,8 +3,7 @@ import { generateJson } from '@/utils/ai.ts';
 import { mathWithMarkdown } from '@/utils/snippets.ts';
 import { MODELS } from '@/config.ts';
 import { assertString, coerceNumber } from "@/utils/assertions";
-import { Question, AssessmentQuestionPayload } from "./types";
-import { assessmentQuestionJsonSchema } from "./schemas";
+import { Question, AssessmentQuestionPayload, assessmentQuestionJsonSchema } from "./schemas";
 import { GeneratedQuestion } from "./components/GeneratedQuestion";
 import './style.css';
 
