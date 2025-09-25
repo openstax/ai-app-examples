@@ -15,7 +15,7 @@ declare global {
 const batchTypesets: Element[] = [];
 let typesetting: Promise<void> | null = null;
 
-export const ModelOutput = (props: { value: string, className: string }) => {
+export const ModelOutput = (props: { value: string, className?: string }) => {
   const className = 'model-output ' + (props.className || '');
   const ref = React.useRef<HTMLDivElement>(null);
 

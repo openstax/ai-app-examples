@@ -10,6 +10,7 @@ export const Home = () => {
         <li><Link to="/generate-text">Generate Text</Link></li>
         <li><Link to="/generate-json">Generate Structured Data</Link></li>
         <li><Link to="/chat">Chat</Link></li>
+        <li><Link to="/adaptive-learning">Adaptive Learning</Link></li>
       </ul>
     </nav>
   </>;
