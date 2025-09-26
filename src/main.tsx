@@ -6,6 +6,7 @@ import { GenerateText } from './pages/GenerateText'
 import { GenerateJson } from './pages/GenerateJson'
 import { Chat } from "./pages/Chat";
 import { AdaptiveLearning } from './pages/AdaptiveLearning'
+import AdaptiveQuestions from './pages/AdaptiveQuestions'
 import { NotFound } from './pages/NotFound'
 import { NavBar } from './components/NavBar'
 import { AuthProvider } from './context/AuthProvider'
@@ -26,6 +27,7 @@ createRoot(root).render(
           <Route path="/generate-json" element={<GenerateJson />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/adaptive-learning" element={<AdaptiveLearning />} />
+          <Route path="/adaptive-questions" element={<AdaptiveQuestions />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

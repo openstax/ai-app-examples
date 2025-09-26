@@ -23,7 +23,7 @@ export type JsonSchema  = Record<string, unknown>;
 const promptExecuteUrl = (promptType: string): string =>
   `${API_URL}/prompts/${PROMPT_IDS[promptType].toString()}/execute`;
 
-const authorizedFetch = (url: string, options: RequestInit = {}) => {
+export const authorizedFetch = (url: string, options: RequestInit = {}) => {
   const urlToFetch = new URL(url);
   urlToFetch.searchParams.set('api_key', API_KEY);
 
